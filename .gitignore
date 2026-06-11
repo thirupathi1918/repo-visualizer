@@ -1,0 +1,10 @@
+# Frontend temporary files
+node_modules/
+dist/
+.env
+
+# Python backend temporary files
+__pycache__/
+*.pyc
+venv/
+.venv/

@@ -1,0 +1,177 @@
+/* frontend/src/App.css */
+
+/* Global Reset & Theme Root variables */
+:root {
+  --bg-primary: #0f111a;    /* Deep cosmic black/navy */
+  --bg-secondary: #1e2235;  /* Sleek panel charcoal */
+  --bg-card: #151824;       /* Card deep navy */
+  --accent-blue: #3b82f6;   /* Electric blue buttons */
+  --accent-green: #10b981;  /* Metrics green */
+  --accent-orange: #f59e0b; /* Complexity amber */
+  --text-main: #f3f4f6;     /* Off-white text */
+  --text-muted: #9ca3af;    /* Soft gray subtext */
+  --border-color: #2e344e;  /* Premium line borders */
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* Unified App Wrapper Split Frame */
+.app-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+/* Infinite Graph Workspace Frame */
+.graph-container {
+  flex: 1;
+  height: 100%;
+  position: relative;
+}
+
+/* Floating Search Header Bar Layout */
+.search-header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+  display: flex;
+  gap: 12px;
+  background: rgba(30, 34, 53, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.search-input {
+  width: 400px;
+  padding: 10px 14px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 13px;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--accent-blue);
+}
+
+.search-btn {
+  padding: 10px 20px;
+  background-color: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.search-btn:hover {
+  background-color: #2563eb;
+}
+
+.search-btn:active {
+  transform: scale(0.98);
+}
+
+/* Slide-out Sidebar Control Panel Details */
+.side-panel {
+  width: 420px;
+  height: 100%;
+  background-color: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 24px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  z-index: 200;
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.close-btn {
+  align-self: flex-end;
+  background: #2a2f4a;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+}
+
+.side-panel h2 {
+  margin: 15px 0 5px 0;
+  font-size: 24px;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+.side-panel p {
+  font-size: 14px;
+  margin: 10px 0;
+  color: var(--text-muted);
+}
+
+.side-panel p strong {
+  color: var(--text-main);
+}
+
+/* AI Prompt Output text styling block bubble */
+.ai-bubble {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-blue);
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e5e7eb;
+}
+
+/* React Flow custom Canvas Overrides for dark grid */
+.react-flow__background {
+  background-color: var(--bg-primary) !important;
+}
+
+.react-flow__controls button {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-main) !important;
+  fill: var(--text-main) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.react-flow__controls button:hover {
+  background-color: #2a2f4a !important;
+}
