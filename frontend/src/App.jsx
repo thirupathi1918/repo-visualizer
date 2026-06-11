@@ -100,7 +100,8 @@ export default function App() {
     setError(null);
     setSelectedNode(null); 
 
-    fetch(`http://127.0.0.1:8000/analyze?path=${encodeURIComponent(repoPath.trim())}`)
+    // Pointed directly to your live production Render API backend gateway instance
+    fetch(`https://repo-visualizer-2vds.onrender.com/analyze?path=${encodeURIComponent(repoPath.trim())}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch repository data. Make sure the folder path exists.');
@@ -132,7 +133,8 @@ export default function App() {
     setSummaryLoading(true);
     setAiSummary(""); 
 
-    fetch(`http://127.0.0.1:8000/summary?path=${encodeURIComponent(node.data.path)}`)
+    // Pointed directly to your live production Render API summary microservice instance
+    fetch(`https://repo-visualizer-2vds.onrender.com/summary?path=${encodeURIComponent(node.data.path)}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to get summary");
         return res.json();
