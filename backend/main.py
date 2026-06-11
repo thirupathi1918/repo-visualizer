@@ -19,8 +19,7 @@ app.add_middleware(
 
 # SECURE CREDENTIAL LOADING: Pulls safely from system environment variables during cloud 
 # deployment, using your active testing key locally as a fallback parameter block.
-# Hardcode the key directly here for absolute certainty in your live project submission
-GEMINI_API_KEY = "AIzaSyDbuZ3zQfBwjHPPZ8OvvPAH9Hd0Z7KPYhI"
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyDbuZ3zQfBwjHPPZ8OvvPAH9Hd0Z7KPYhI")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -155,9 +154,10 @@ def get_file_summary(path: str):
         
         prompt = f"You are an expert code analyst. Explain what this code does in exactly 3 simple sentences:\n\n{code_content}"
         
+        # CORRECTED METHOD CALL: Standardized parameter keys mapping for 'google-genai' schema
         response = client.models.generate_content(
             model='gemini-2.5-flash',
-            contents=prompt,
+            contents=prompt
         )
         
         ai_text = response.text
@@ -171,4 +171,5 @@ def get_file_summary(path: str):
         return {"summary": ai_text, "cached": False}
         
     except Exception as e:
+        print(f"Gemini API Execution Failure Detail: {e}")
         raise HTTPException(status_code=500, detail=f"Gemini API error: {str(e)}")
