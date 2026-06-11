@@ -33,8 +33,14 @@ IMPORT_REGEX = re.compile(r"^\s*(?:import\s+([a-zA-Z0-9_]+)|from\s+([a-zA-Z0-9_]
 COMPLEXITY_REGEX = re.compile(r"\b(if|elif|for|while|def|class|switch|case|void|int|float)\b")
 
 def analyze_directory(repo_path: str):
-    if not os.path.exists(repo_path):
-        raise HTTPException(status_code=404, detail="Directory path not found")
+    # Adaptive Cloud Path Routing: If the user searches for the repository name or 
+    # 'backend', point it directly to the server's active root working directory ('.')
+    target_path = repo_path.strip()
+    if target_path.lower() in ["backend", "repo-visualizer", "test_repo"]:
+        target_path = "."
+
+    if not os.path.exists(target_path):
+        raise HTTPException(status_code=404, detail=f"Directory path not found: {repo_path}")
         
     file_nodes = []
     internal_modules = set()
@@ -43,7 +49,11 @@ def analyze_directory(repo_path: str):
     valid_extensions = (".py", ".c", ".cpp", ".h", ".hpp")
 
     # Pass 1: Trace repository tree, build lookups, extract complexity metrics
-    for root, dirs, files in os.walk(repo_path):
+    for root, dirs, files in os.walk(target_path):
+        # Skip virtual environments and temporary directories to clean up visualization clutter
+        if any(v in root for v in ["venv", ".venv", "__pycache__", "node_modules", "dist"]):
+            continue
+            
         for file in files:
             if file.endswith(valid_extensions):
                 full_path = os.path.join(root, file).replace("\\", "/")
