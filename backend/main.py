@@ -19,7 +19,8 @@ app.add_middleware(
 
 # SECURE CREDENTIAL LOADING: Pulls safely from system environment variables during cloud 
 # deployment, using your active testing key locally as a fallback parameter block.
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyDbuZ3zQfBwjHPPZ8OvvPAH9Hd0Z7KPYhI")
+# Hardcode the key directly here for absolute certainty in your live project submission
+GEMINI_API_KEY = "AIzaSyDbuZ3zQfBwjHPPZ8OvvPAH9Hd0Z7KPYhI"
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
